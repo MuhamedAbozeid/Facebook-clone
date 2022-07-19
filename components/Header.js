@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import { signIn } from 'next-auth/react';
 
 import {
     BellIcon,
@@ -67,17 +68,22 @@ function Header() {
         <div className='flex items-center sm:space-x-2 justify-end'>
 
           {/* Profile pic */}
-        <Image
-        onClick={signOut}
-        className="rounded-full cursor-pointer"
-        src={session.user.image}
-        width="40"
-        height="40"
-        layout="fixed"
+        {session ? 
+          <>
+          <img
+          onClick={signOut}
+          className="rounded-full cursor-pointer"
+          src={session.user.image}
+          width="40"
+          height="40"
+          layout="fixed"
         />
-
-
+              
           <p className="hidden lg:inline-flex text-sm whitespace-nowrap font-semibold pr-3">{session.user.name}</p>
+          </>
+           :
+            <button onClick={signIn} className='mr-3'>Sign In</button>
+           }
           <ViewGridIcon className="icon" />
           <ChatIcon className="icon" />
           <BellIcon className="icon" />

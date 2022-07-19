@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import Image from "next/image";
 import {EmojiHappyIcon} from "@heroicons/react/outline";
-import { CameraIcon, VideoCameraIcon} from "@heroicons/react/solid";
+import { CameraIcon, VideoCameraIcon, UserCircleIcon} from "@heroicons/react/solid";
 import {db, storage} from "../firebase";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
@@ -71,22 +71,29 @@ function InputBox() {
   return (
     <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
         <div className="flex space-x-4 p-4 items-center">
-            <Image
+
+            {session ?
+            <img
             className="rounded-full"
             src={session.user.image}
             width={40}
             height={40}
             layout="fixed"
             />
+          :
+          <UserCircleIcon  width={40}  height={40} />
+          }
 
             <form className="flex flex-1">
+                
                 <input
                 className="rounded-full h-12 bg-gray-100
                 flex-grow px-5 focus:outline-none"
                 ref={inputRef}
                 type="text"
-                placeholder={`What's on your mind, ${session.user.name}?`}
+                placeholder={`What's on your mind, ${ session ? session.user.name : '...'}?`}
                 />
+                
                 <button hidden type="submit" onClick={sendPost}>
                  Submit
                 </button>

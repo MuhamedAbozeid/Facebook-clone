@@ -7,15 +7,17 @@ import Feed from '../components/Feed';
 import Widgets from './../components/Widgets';
 import { getDocs, query, collection, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
+import { signIn, signOut, useSession } from 'next-auth/react';
+
 
 export default function Home({session, posts}) {
 
-  if(!session) return <Login />;
+  // if(!session) return <button onClick={signIn}>Sign In</button>;
   return (
     <div className='h-screen bg-gray-100 overflow-hidden'>
       <Head>
         <title>Facebook clone</title>
-        {/* <link rel="icon" href="/favicon.ico" /> */}
+      
       </Head>
 
 
