@@ -12,6 +12,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function Home({session, posts}) {
 
+
   // if(!session) return <button onClick={signIn}>Sign In</button>;
   return (
     <div className='h-screen bg-gray-100 overflow-hidden'>

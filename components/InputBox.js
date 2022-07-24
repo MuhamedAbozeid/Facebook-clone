@@ -70,6 +70,11 @@ function InputBox() {
 
   return (
     <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
+
+        {!session &&
+        <p className="text-red-500 text-sm text-center"> Sign In, so you will be able to add posts, likes and comments </p>
+        }
+
         <div className="flex space-x-4 p-4 items-center">
 
             {session ?
@@ -84,20 +89,32 @@ function InputBox() {
           <UserCircleIcon  width={40}  height={40} />
           }
 
-            <form className="flex flex-1">
+
+            {session? ( 
+                <form className="flex flex-1">       
+                        <input
+                        className="rounded-full h-12 bg-gray-100
+                        flex-grow px-5 focus:outline-none"
+                        ref={inputRef}
+                        type="text"
+                        placeholder={`What's on your mind, ${session.user.name}?`}
+                        />
+                        
+                        <button hidden type="submit" onClick={sendPost}>
+                             Submit
+                        </button>
+                </form>
+            ):(     
                 
                 <input
                 className="rounded-full h-12 bg-gray-100
                 flex-grow px-5 focus:outline-none"
                 ref={inputRef}
                 type="text"
-                placeholder={`What's on your mind, ${ session ? session.user.name : '...'}?`}
+                placeholder= "What's on your mind, ...?"
                 />
                 
-                <button hidden type="submit" onClick={sendPost}>
-                 Submit
-                </button>
-            </form>
+            )}
 
             {imageToPost && (
                 <div onClick={removeImage} 
@@ -120,12 +137,21 @@ function InputBox() {
                 xl:text-base">Live Video</p>
             </div>
 
-            <div className="inputIcon" onClick={() => filepickerRef.current.click()}>
-                <CameraIcon className="h-7 text-green-400" />
-                <p className="text-xs sm:text-sm
-                xl:text-base">Photo/Video</p>
-                <input ref={filepickerRef} onChange={addImageToPost} type="file" hidden />
+            {session ? (
+                <div className="inputIcon" onClick={() => filepickerRef.current.click()}>
+                    <CameraIcon className="h-7 text-green-400" />
+                    <p className="text-xs sm:text-sm
+                    xl:text-base">Photo/Video</p>
+                    <input ref={filepickerRef} onChange={addImageToPost} type="file" hidden />
+                </div>
+            ):(
+                <div className="inputIcon" onClick={() => filepickerRef.current.click()}>
+                    <CameraIcon className="h-7 text-green-400" />
+                    <p className="text-xs sm:text-sm
+                    xl:text-base">Photo/Video</p>
+                    <input ref={filepickerRef}  type="file" hidden />
             </div>
+            )}
 
             <div className="inputIcon">
                 <EmojiHappyIcon className="h-7 text-yellow-300" />

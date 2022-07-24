@@ -19,5 +19,12 @@ export default NextAuth({
     signIn: "/auth/signin",
   }, 
 
+  callbacks:{
+    async session({ session, token, user }){
+      
+      session.user.uid = token.sub;
+      return session;
+    }
+  }
 
 })

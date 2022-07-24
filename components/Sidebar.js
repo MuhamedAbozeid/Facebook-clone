@@ -21,7 +21,7 @@ function Sidebar() {
    const {data:session, loading} = useSession();
 
   return (
-    <div className="p-2 mt-5 max-w-[600px] xl:min-w-[300px]">
+    <div className="p-2 mt-5 hidden sm:block max-w-[600px] xl:min-w-[300px]">
         {session &&
         <SidebarRow src={session.user.image} title={session.user.name} />
             }
